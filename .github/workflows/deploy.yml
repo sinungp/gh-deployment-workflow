@@ -1,0 +1,25 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    paths:
+      - "index.html" # Trigger hanya jika file index.html berubah
+    branches:
+      - main # Hanya jalankan workflow di branch main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }} # Token otomatis dari GitHub untuk autentikasi
+        publish_dir: ./ # Folder yang akan di-publish (root project)
+
+    - name: Deploy index.html
+      run: echo "Deployed to GitHub Pages"
